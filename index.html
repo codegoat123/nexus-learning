@@ -10,28 +10,24 @@
   </style>
 </head>
 <body>
-  <script type="module">
-    import * as THREE from 'https://unpkg.com/three@0.153.0/build/three.module.js';
-    import { OrbitControls } from 'https://unpkg.com/three@0.153.0/examples/jsm/controls/OrbitControls.js';
-
-    // Scene and Camera
+  <!-- UMD-style scripts for GitHub Pages compatibility -->
+  <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+  <script>
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87CEEB); // Sky blue
+    scene.background = new THREE.Color(0x87CEEB);
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(10, 10, 10);
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     document.body.appendChild(renderer.domElement);
 
-    // Orbit Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 0.5, 0);
     controls.enableDamping = true;
 
-    // Lights
     const ambient = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambient);
 
@@ -40,7 +36,6 @@
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    // Island Ground
     const island = new THREE.Mesh(
       new THREE.CircleGeometry(50, 64),
       new THREE.MeshStandardMaterial({ color: 0x228B22 })
@@ -49,7 +44,6 @@
     island.receiveShadow = true;
     scene.add(island);
 
-    // Sea
     const sea = new THREE.Mesh(
       new THREE.PlaneGeometry(300, 300),
       new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.7 })
@@ -58,7 +52,6 @@
     sea.position.y = -0.2;
     scene.add(sea);
 
-    // Player Cube
     const player = new THREE.Mesh(
       new THREE.BoxGeometry(1, 1, 1),
       new THREE.MeshStandardMaterial({ color: 0x00ff00 })
@@ -67,7 +60,6 @@
     player.position.y = 0.5;
     scene.add(player);
 
-    // Jungle Trees
     function addTree(x, z) {
       const trunk = new THREE.Mesh(
         new THREE.CylinderGeometry(0.2, 0.2, 2),
@@ -95,7 +87,6 @@
       addTree(x, z);
     }
 
-    // Movement Controls
     const keys = {};
     document.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
     document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
@@ -117,7 +108,6 @@
 
     animate();
 
-    // Resize handler
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
