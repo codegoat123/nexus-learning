@@ -14,13 +14,11 @@
     import * as THREE from 'https://unpkg.com/three@0.153.0/build/three.module.js';
     import { OrbitControls } from 'https://unpkg.com/three@0.153.0/examples/jsm/controls/OrbitControls.js';
 
-    // Scene
+    // Scene and Camera
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x87CEEB); // Sky blue
-
-    // Camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(5, 5, 5);
+    camera.position.set(10, 10, 10);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -28,45 +26,49 @@
     renderer.shadowMap.enabled = true;
     document.body.appendChild(renderer.domElement);
 
-    // Controls
+    // Orbit Controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
     controls.target.set(0, 0.5, 0);
+    controls.enableDamping = true;
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambient);
 
     const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-    dirLight.position.set(10, 20, 10);
+    dirLight.position.set(5, 20, 10);
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    // Island ground (green)
-    const groundGeometry = new THREE.CircleGeometry(50, 64);
-    const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
-    const island = new THREE.Mesh(groundGeometry, groundMaterial);
+    // Island Ground
+    const island = new THREE.Mesh(
+      new THREE.CircleGeometry(50, 64),
+      new THREE.MeshStandardMaterial({ color: 0x228B22 })
+    );
     island.rotation.x = -Math.PI / 2;
     island.receiveShadow = true;
     scene.add(island);
 
-    // Sea (surrounds island)
-    const seaGeometry = new THREE.PlaneGeometry(300, 300);
-    const seaMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.8 });
-    const sea = new THREE.Mesh(seaGeometry, seaMaterial);
+    // Sea
+    const sea = new THREE.Mesh(
+      new THREE.PlaneGeometry(300, 300),
+      new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.7 })
+    );
     sea.rotation.x = -Math.PI / 2;
-    sea.position.y = -0.1;
+    sea.position.y = -0.2;
     scene.add(sea);
 
-    // Player cube
-    const playerMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-    const player = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), playerMaterial);
+    // Player Cube
+    const player = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshStandardMaterial({ color: 0x00ff00 })
+    );
     player.castShadow = true;
-    player.position.set(0, 0.5, 0);
+    player.position.y = 0.5;
     scene.add(player);
 
-    // Jungle trees
-    function createTree(x, z) {
+    // Jungle Trees
+    function addTree(x, z) {
       const trunk = new THREE.Mesh(
         new THREE.CylinderGeometry(0.2, 0.2, 2),
         new THREE.MeshStandardMaterial({ color: 0x8B4513 })
@@ -90,15 +92,14 @@
       const radius = Math.random() * 45;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      createTree(x, z);
+      addTree(x, z);
     }
 
-    // Keyboard input
+    // Movement Controls
     const keys = {};
     document.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
     document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 
-    // Animation loop
     function animate() {
       requestAnimationFrame(animate);
 
@@ -116,7 +117,7 @@
 
     animate();
 
-    // Handle window resize
+    // Resize handler
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -125,3 +126,4 @@
   </script>
 </body>
 </html>
+
