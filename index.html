@@ -2,118 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jungle Island Game</title>
   <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
+    #ui {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: white;
+      font-family: sans-serif;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: space-between;
+    }
+    #stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    #instructions, #menu, #inventoryUI {
+      position: absolute;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      font-family: sans-serif;
+      border-radius: 5px;
+    }
+    #instructions {
+      bottom: 10px;
+      left: 10px;
+    }
+    #menu {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    #menu button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #inventoryUI {
+      top: 10px;
+      right: 10px;
+      display: none;
+      width: 200px;
+    }
+    .item {
+      background: rgba(255,255,255,0.1);
+      padding: 5px;
+      margin-bottom: 5px;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
-  <!-- UMD-style scripts for GitHub Pages compatibility -->
-  <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+  <div id="ui">
+    <div id="stats">
+      <div id="health">❤️ Health: 100</div>
+      <div id="level">⭐ Level: 1</div>
+      <div id="exp">🧠 EXP: 0/100</div>
+      <div id="fruit">🍇 Fruit Power: None</div>
+    </div>
+    <div id="quest">📜 Quest: Defeat 3 Monkeys</div>
+  </div>
+  <div id="instructions">
+    W/A/S/D: Move | Mouse: Look | Space: Jump | Click: Attack | F: Eat Fruit | E: Talk to Dealer | I: Inventory
+  </div>
+  <div id="inventoryUI"></div>
+  <div id="menu">
+    <h1>Game Over</h1>
+    <button onclick="location.reload()">Restart</button>
+  </div>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/11/audio_7e033409f5.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="hitSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_42495c8f68.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="levelUpSound">
+    <source src="https://cdn.pixabay.com/audio/2021/09/20/audio_5c2a2a83b2.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/PointerLockControls.js"></script>
+
   <script>
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87CEEB);
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(10, 10, 10);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMap.enabled = true;
-    document.body.appendChild(renderer.domElement);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.5, 0);
-    controls.enableDamping = true;
-
-    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambient);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-    dirLight.position.set(5, 20, 10);
-    dirLight.castShadow = true;
-    scene.add(dirLight);
-
-    const island = new THREE.Mesh(
-      new THREE.CircleGeometry(50, 64),
-      new THREE.MeshStandardMaterial({ color: 0x228B22 })
-    );
-    island.rotation.x = -Math.PI / 2;
-    island.receiveShadow = true;
-    scene.add(island);
-
-    const sea = new THREE.Mesh(
-      new THREE.PlaneGeometry(300, 300),
-      new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.7 })
-    );
-    sea.rotation.x = -Math.PI / 2;
-    sea.position.y = -0.2;
-    scene.add(sea);
-
-    const player = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshStandardMaterial({ color: 0x00ff00 })
-    );
-    player.castShadow = true;
-    player.position.y = 0.5;
-    scene.add(player);
-
-    function addTree(x, z) {
-      const trunk = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.2, 0.2, 2),
-        new THREE.MeshStandardMaterial({ color: 0x8B4513 })
-      );
-      trunk.position.set(x, 1, z);
-      trunk.castShadow = true;
-
-      const leaves = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 8, 8),
-        new THREE.MeshStandardMaterial({ color: 0x006400 })
-      );
-      leaves.position.set(x, 3, z);
-      leaves.castShadow = true;
-
-      scene.add(trunk);
-      scene.add(leaves);
-    }
-
-    for (let i = 0; i < 30; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = Math.random() * 45;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
-      addTree(x, z);
-    }
-
-    const keys = {};
-    document.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
-    document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const speed = 0.2;
-      if (keys['w']) player.position.z -= speed;
-      if (keys['s']) player.position.z += speed;
-      if (keys['a']) player.position.x -= speed;
-      if (keys['d']) player.position.x += speed;
-
-      controls.target.copy(player.position);
-      controls.update();
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyE') talkToDealer();
+      if (e.code === 'KeyI') toggleInventory();
     });
+
+    const inventory = [];
+    const inventoryUI = document.getElementById('inventoryUI');
+
+    function talkToDealer() {
+      const dealerPos = new THREE.Vector3(-10, 2, 10);
+      if (controls.getObject().position.distanceTo(dealerPos) < 4) {
+        alert("Welcome to the Jungle Fruit Dealer! Today's fruit: Ice Ball. Find it and press F to eat it.");
+        addItemToInventory("Ice Ball Fruit");
+      }
+    }
+
+    function toggleInventory() {
+      if (inventoryUI.style.display === 'none') {
+        inventoryUI.style.display = 'block';
+        updateInventoryUI();
+      } else {
+        inventoryUI.style.display = 'none';
+      }
+    }
+
+    function addItemToInventory(item) {
+      if (!inventory.includes(item)) {
+        inventory.push(item);
+        updateInventoryUI();
+      }
+    }
+
+    function updateInventoryUI() {
+      inventoryUI.innerHTML = '<h3>Inventory</h3>' + inventory.map(item => `<div class='item'>${item}</div>`).join('');
+    }
+
+    // Simulate environment interactions
+    setTimeout(() => addItemToInventory("Health Potion"), 8000);
+    setTimeout(() => addItemToInventory("Map Piece"), 12000);
+    setTimeout(() => addItemToInventory("Golden Banana"), 16000);
   </script>
 </body>
 </html>
-
