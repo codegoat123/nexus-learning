@@ -4,31 +4,27 @@
   const panels = Array.from(document.querySelectorAll('.subject-panel'));
 
   function activateTopTab(tab){
-    // deactivate all tabs
     topTabs.forEach(t=>{
       t.setAttribute('aria-selected','false');
       t.setAttribute('tabindex','-1');
     });
-    // hide all panels
     panels.forEach(p=>{
       p.setAttribute('aria-hidden','true');
     });
 
-    // activate clicked tab
     tab.setAttribute('aria-selected','true');
     tab.setAttribute('tabindex','0');
     const target = tab.dataset.target;
     const panel = document.getElementById('panel-' + target);
     if(panel){
       panel.setAttribute('aria-hidden','false');
-      // If the panel contains an inner tablist, activate its first tab
+      // If the panel contains an inner tablist, activate its first tab (languages -> first language)
       const firstInner = panel.querySelector('[role="tablist"] [role="tab"]');
       if(firstInner) firstInner.click();
     }
     tab.focus();
   }
 
-  // click + keyboard navigation for top tabs
   topTabs.forEach(tab=>{
     tab.addEventListener('click', ()=> activateTopTab(tab));
     tab.addEventListener('keydown', (e)=>{
@@ -120,7 +116,7 @@
     }
   });
 
-  // On page load, ensure each subject-card's first inner tab is active
+  // On page load, ensure each subject-card's first inner tab is active (for accessibility)
   document.querySelectorAll('.subject-card').forEach(card=>{
     const firstTab = card.querySelector('[role="tablist"] [role="tab"]');
     if(firstTab) firstTab.click();
