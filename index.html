@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Nexis Learning</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,16 +16,16 @@
 
   <!-- Top-level navigation -->
   <nav class="top-tabs" role="tablist">
-    <button role="tab" data-target="home" aria-selected="true">Home</button>
-    <button role="tab" data-target="languages">Languages</button>
-    <button role="tab" data-target="math">Math</button>
-    <button role="tab" data-target="standards">Standards</button>
-    <button role="tab" data-target="home-schooling">Home Schooling</button>
+    <button role="tab" data-target="home" aria-selected="true" tabindex="0">Home</button>
+    <button role="tab" data-target="languages" aria-selected="false" tabindex="-1">Languages</button>
+    <button role="tab" data-target="math" aria-selected="false" tabindex="-1">Math</button>
+    <button role="tab" data-target="standards" aria-selected="false" tabindex="-1">Standards</button>
+    <button role="tab" data-target="home-schooling" aria-selected="false" tabindex="-1">Home Schooling</button>
   </nav>
 
   <main>
     <!-- HOME -->
-    <section id="home" class="subject-panel active">
+    <section id="panel-home" class="subject-panel" role="tabpanel" aria-hidden="false">
       <div class="subject-card">
         <h2>Welcome Home</h2>
         <p>Select a subject tab above to begin.</p>
@@ -33,39 +33,39 @@
     </section>
 
     <!-- LANGUAGES -->
-    <section id="languages" class="subject-panel">
+    <section id="panel-languages" class="subject-panel" role="tabpanel" aria-hidden="true">
       <div class="subject-card">
         <h2>Languages</h2>
         <p>Choose a language workspace.</p>
 
         <!-- Language selector -->
-        <div class="inner-tabs">
-          <button role="tab" data-panel="spanish" aria-selected="true">Spanish</button>
-          <!-- Later: add English, French, etc. -->
+        <div class="inner-tabs" role="tablist">
+          <button role="tab" data-panel="spanish" aria-selected="true" tabindex="0">Spanish</button>
+          <button role="tab" data-panel="english" aria-selected="false" tabindex="-1">English</button>
         </div>
 
-        <!-- Spanish workspace -->
-        <div id="spanish" class="language-panel active">
-          <div class="inner-tabs">
-            <button role="tab" data-panel="spanish-diagnostic" aria-selected="true">Diagnostic</button>
-            <button role="tab" data-panel="spanish-analytics">Analytics</button>
-            <button role="tab" data-panel="spanish-objectives">Learning Objectives</button>
-            <button role="tab" data-panel="spanish-worksheets">Worksheets</button>
-            <button role="tab" data-panel="spanish-quizzes">Quizzes & Exams</button>
-            <button role="tab" data-panel="spanish-badges">Badges & Certificates</button>
+        <!-- SPANISH -->
+        <div id="spanish" class="language-panel" role="tabpanel">
+          <div class="inner-tabs" role="tablist">
+            <button role="tab" data-panel="spanish-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
+            <button role="tab" data-panel="spanish-analytics" aria-selected="false" tabindex="-1">Analytics</button>
+            <button role="tab" data-panel="spanish-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
+            <button role="tab" data-panel="spanish-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
+            <button role="tab" data-panel="spanish-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
+            <button role="tab" data-panel="spanish-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
           </div>
 
-          <div id="spanish-diagnostic" class="panel active">
+          <div id="spanish-diagnostic" role="tabpanel" hidden>
             <h3>Diagnostic</h3>
             <p>Placement test for vocabulary, verbs, and comprehension.</p>
           </div>
 
-          <div id="spanish-analytics" class="panel">
+          <div id="spanish-analytics" role="tabpanel" hidden>
             <h3>Analytics</h3>
             <p>Progress tracking and skill breakdowns.</p>
           </div>
 
-          <div id="spanish-objectives" class="panel">
+          <div id="spanish-objectives" role="tabpanel" hidden>
             <h3>Learning Objectives</h3>
             <ul>
               <li>Learn 100 core everyday words.</li>
@@ -75,12 +75,12 @@
             </ul>
           </div>
 
-          <div id="spanish-worksheets" class="panel">
+          <div id="spanish-worksheets" role="tabpanel" hidden>
             <h3>Worksheets</h3>
             <p>Printable exercises for vocabulary and grammar practice.</p>
           </div>
 
-          <div id="spanish-quizzes" class="panel">
+          <div id="spanish-quizzes" role="tabpanel" hidden>
             <h3>Quizzes & Exams</h3>
             <p>Sample Quiz:</p>
             <ol>
@@ -91,16 +91,63 @@
             <p>Exam sections: Vocabulary, Grammar, Reading, Listening.</p>
           </div>
 
-          <div id="spanish-badges" class="panel">
+          <div id="spanish-badges" role="tabpanel" hidden>
             <h3>Badges & Certificates</h3>
             <p>Earn badges for milestones and certificates for completion.</p>
+          </div>
+        </div>
+
+        <!-- ENGLISH -->
+        <div id="english" class="language-panel" role="tabpanel" hidden>
+          <div class="inner-tabs" role="tablist">
+            <button role="tab" data-panel="english-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
+            <button role="tab" data-panel="english-analytics" aria-selected="false" tabindex="-1">Analytics</button>
+            <button role="tab" data-panel="english-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
+            <button role="tab" data-panel="english-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
+            <button role="tab" data-panel="english-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
+            <button role="tab" data-panel="english-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
+          </div>
+
+          <div id="english-diagnostic" role="tabpanel" hidden>
+            <h3>Diagnostic</h3>
+            <p>Placement test and initial reading/writing checks.</p>
+          </div>
+
+          <div id="english-analytics" role="tabpanel" hidden>
+            <h3>Analytics</h3>
+            <p>Progress charts, mastery indicators, time-on-task.</p>
+          </div>
+
+          <div id="english-objectives" role="tabpanel" hidden>
+            <h3>Learning Objectives</h3>
+            <ul>
+              <li>Expand vocabulary to 500+ words.</li>
+              <li>Improve grammar accuracy in writing.</li>
+              <li>Develop reading comprehension for short stories.</li>
+              <li>Practice conversational fluency.</li>
+            </ul>
+          </div>
+
+          <div id="english-worksheets" role="tabpanel" hidden>
+            <h3>Worksheets</h3>
+            <p>Printable and interactive practice materials.</p>
+          </div>
+
+          <div id="english-quizzes" role="tabpanel" hidden>
+            <h3>Quizzes & Exams</h3>
+            <p>Formative quizzes and summative exams.</p>
+          </div>
+
+          <div id="english-badges" role="tabpanel" hidden>
+            <h3>Badges & Certificates</h3>
+            <p>Awards and completion certificates.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- MATH (placeholder for later) -->
-    <section id="math" class="subject-panel">
+    <!-- MATH -->
+    <section id="panel-math" class="subject-panel" role="tabpanel" aria-hidden="true">
       <div class="subject-card">
         <h2>Math</h2>
         <p>Coming soon...</p>
@@ -108,7 +155,7 @@
     </section>
 
     <!-- STANDARDS -->
-    <section id="standards" class="subject-panel">
+    <section id="panel-standards" class="subject-panel" role="tabpanel" aria-hidden="true">
       <div class="subject-card">
         <h2>Standards</h2>
         <p>Curriculum frameworks and grade-level expectations.</p>
@@ -116,7 +163,7 @@
     </section>
 
     <!-- HOME SCHOOLING -->
-    <section id="home-schooling" class="subject-panel">
+    <section id="panel-home-schooling" class="subject-panel" role="tabpanel" aria-hidden="true">
       <div class="subject-card">
         <h2>Home Schooling</h2>
         <p>Flexible learning tools for families and independent learners.</p>
