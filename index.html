@@ -1,421 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nexis Learning — Subjects (Yellow · Blue · Purple)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="2" y="3" width="20" height="18" rx="3" fill="#fff" opacity="0.06"></rect>
-        <path d="M4 7h16M4 12h16M4 17h10" stroke="#fff" stroke-width="1.2" stroke-linecap="round"></path>
-      </svg>
-      <div>
-        <h1>Nexis Learning</h1>
-        <p>Structured learning paths for every subject</p>
-      </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#">Brand</a>
+
+      <nav class="nav" id="mainNav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">☰</button>
     </div>
-    <div class="header-meta">Home • Subjects</div>
   </header>
 
-  <!-- Top-level navigation -->
-  <nav class="top-tabs" role="tablist" aria-label="Main subjects">
-    <button role="tab" data-target="home" aria-selected="true" tabindex="0">Home</button>
-    <button role="tab" data-target="languages" aria-selected="false" tabindex="-1">Languages</button>
-    <button role="tab" data-target="math" aria-selected="false" tabindex="-1">Math</button>
-    <button role="tab" data-target="science" aria-selected="false" tabindex="-1">Science</button>
-    <button role="tab" data-target="social-studies" aria-selected="false" tabindex="-1">Social Studies</button>
-    <button role="tab" data-target="standards" aria-selected="false" tabindex="-1">Standards</button>
-    <button role="tab" data-target="home-schooling" aria-selected="false" tabindex="-1">Home Schooling</button>
-  </nav>
-
-  <main>
-    <!-- HOME -->
-    <section id="panel-home" class="subject-panel" role="tabpanel" aria-hidden="false">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Welcome Home</h2>
-            <p>Choose a subject to open its learning workspace</p>
-          </div>
-          <div class="hint">Tip: Use left and right arrows to move between subjects</div>
-        </div>
-
-        <div class="panel-grid">
-          <div class="panel">
-            <h3>Overview</h3>
-            <p>Each subject contains a consistent structure: Diagnostic, Analytics, Learning Objectives, Worksheets, Quizzes & Exams, and Badges & Certificates.</p>
-          </div>
-          <div class="panel">
-            <h3>Getting Started</h3>
-            <p>Click a subject tab above to open its workspace. Inside each subject, use the inner tabs to navigate the learning flow.</p>
-          </div>
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Welcome to the Page</h1>
+        <p class="lead">A short description that matches the original design and keeps the same spacing and typography.</p>
+        <div class="hero-actions">
+          <button id="primaryBtn" class="btn primary">Get Started</button>
+          <button id="secondaryBtn" class="btn">Learn More</button>
         </div>
       </div>
     </section>
 
-    <!-- LANGUAGES (contains language selector; each language has the same internal structure) -->
-    <section id="panel-languages" class="subject-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Languages</h2>
-            <p>Manage multiple language workspaces (each language follows the same learning structure)</p>
-          </div>
-          <div class="hint">Add more languages later</div>
-        </div>
+    <section id="features" class="cards container">
+      <article class="card">
+        <h2>Card One</h2>
+        <p>Some descriptive text for card one that preserves the original spacing and font sizes.</p>
+        <button class="btn card-btn">Action</button>
+      </article>
 
-        <!-- language selector -->
-        <div class="inner-tabs" role="tablist" aria-label="Languages list">
-          <button role="tab" data-panel="language-spanish" aria-selected="true" tabindex="0">Spanish</button>
-          <button role="tab" data-panel="language-english" aria-selected="false" tabindex="-1">English</button>
-        </div>
+      <article class="card">
+        <h2>Card Two</h2>
+        <p>Some descriptive text for card two that preserves the original spacing and font sizes.</p>
+        <button class="btn card-btn">Action</button>
+      </article>
 
-        <!-- language panels -->
-        <div class="panel-grid" style="margin-top:12px">
-          <!-- SPANISH LANGUAGE PANEL -->
-          <div id="language-spanish" class="panel language-panel" role="tabpanel">
-            <div class="subject-card">
-              <div class="subject-header">
-                <div>
-                  <h2>Spanish</h2>
-                  <p>Vocabulary, grammar, conversation, and comprehension</p>
-                </div>
-                <div class="hint">Language workspace</div>
-              </div>
-
-              <div class="inner-tabs" role="tablist" aria-label="Spanish sections">
-                <button role="tab" data-panel="spanish-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
-                <button role="tab" data-panel="spanish-analytics" aria-selected="false" tabindex="-1">Analytics</button>
-                <button role="tab" data-panel="spanish-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
-                <button role="tab" data-panel="spanish-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
-                <button role="tab" data-panel="spanish-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
-                <button role="tab" data-panel="spanish-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
-              </div>
-
-              <div id="spanish-diagnostic" role="tabpanel" hidden>
-                <h3>Diagnostic</h3>
-                <p>Placement test for vocabulary, verbs, and comprehension.</p>
-              </div>
-
-              <div id="spanish-analytics" role="tabpanel" hidden>
-                <h3>Analytics</h3>
-                <p>Progress tracking and skill breakdowns.</p>
-              </div>
-
-              <div id="spanish-objectives" role="tabpanel" hidden>
-                <h3>Learning Objectives</h3>
-                <ul>
-                  <li>Learn 100 core everyday words.</li>
-                  <li>Master present tense conjugations of regular verbs.</li>
-                  <li>Understand gender and number agreement.</li>
-                  <li>Hold a basic 3–5 sentence dialogue.</li>
-                  <li>Read short passages and identify main ideas.</li>
-                </ul>
-              </div>
-
-              <div id="spanish-worksheets" role="tabpanel" hidden>
-                <h3>Worksheets</h3>
-                <p>Printable and interactive practice materials: conjugation drills, vocabulary matching, short reading tasks.</p>
-              </div>
-
-              <div id="spanish-quizzes" role="tabpanel" hidden>
-                <h3>Quizzes & Exams</h3>
-                <p><strong>Sample Quiz (Greetings)</strong></p>
-                <ol>
-                  <li>Choose the correct translation for "Good morning": <em>Buenos días</em>.</li>
-                  <li>Fill in: "Me llamo ___." → <em>Juan</em>.</li>
-                  <li>Match: Adiós → Goodbye; Gracias → Thank you.</li>
-                </ol>
-                <p><strong>Exam structure</strong>: Vocabulary (20), Grammar (30), Reading (25), Listening (25).</p>
-              </div>
-
-              <div id="spanish-badges" role="tabpanel" hidden>
-                <h3>Badges & Certificates</h3>
-                <p>Earn badges for milestones and certificates for course completion.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ENGLISH LANGUAGE PANEL -->
-          <div id="language-english" class="panel language-panel" role="tabpanel" hidden>
-            <div class="subject-card">
-              <div class="subject-header">
-                <div>
-                  <h2>English</h2>
-                  <p>Reading, writing, grammar, and vocabulary</p>
-                </div>
-                <div class="hint">Language workspace</div>
-              </div>
-
-              <div class="inner-tabs" role="tablist" aria-label="English sections">
-                <button role="tab" data-panel="english-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
-                <button role="tab" data-panel="english-analytics" aria-selected="false" tabindex="-1">Analytics</button>
-                <button role="tab" data-panel="english-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
-                <button role="tab" data-panel="english-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
-                <button role="tab" data-panel="english-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
-                <button role="tab" data-panel="english-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
-              </div>
-
-              <div id="english-diagnostic" role="tabpanel" hidden>
-                <h3>Diagnostic</h3>
-                <p>Placement test and initial reading/writing checks.</p>
-              </div>
-
-              <div id="english-analytics" role="tabpanel" hidden>
-                <h3>Analytics</h3>
-                <p>Progress charts, mastery indicators, time-on-task.</p>
-              </div>
-
-              <div id="english-objectives" role="tabpanel" hidden>
-                <h3>Learning Objectives</h3>
-                <ul>
-                  <li>Expand vocabulary to 500+ words.</li>
-                  <li>Improve grammar accuracy in writing.</li>
-                  <li>Develop reading comprehension for short stories.</li>
-                  <li>Practice conversational fluency.</li>
-                </ul>
-              </div>
-
-              <div id="english-worksheets" role="tabpanel" hidden>
-                <h3>Worksheets</h3>
-                <p>Printable and interactive practice materials for grammar and reading.</p>
-              </div>
-
-              <div id="english-quizzes" role="tabpanel" hidden>
-                <h3>Quizzes & Exams</h3>
-                <p>Formative quizzes and summative exams for each unit.</p>
-              </div>
-
-              <div id="english-badges" role="tabpanel" hidden>
-                <h3>Badges & Certificates</h3>
-                <p>Awards and completion certificates.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- MATH -->
-    <section id="panel-math" class="subject-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Math</h2>
-            <p>Arithmetic, algebra, geometry, and problem solving</p>
-          </div>
-          <div class="hint">Subject workspace</div>
-        </div>
-
-        <div class="inner-tabs" role="tablist" aria-label="Math sections">
-          <button role="tab" data-panel="math-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
-          <button role="tab" data-panel="math-analytics" aria-selected="false" tabindex="-1">Analytics</button>
-          <button role="tab" data-panel="math-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
-          <button role="tab" data-panel="math-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
-          <button role="tab" data-panel="math-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
-          <button role="tab" data-panel="math-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
-        </div>
-
-        <div id="math-diagnostic" role="tabpanel" hidden>
-          <h3>Diagnostic</h3>
-          <p>Initial assessment of numeracy and algebra skills.</p>
-        </div>
-
-        <div id="math-analytics" role="tabpanel" hidden>
-          <h3>Analytics</h3>
-          <p>Mastery charts and error analysis.</p>
-        </div>
-
-        <div id="math-objectives" role="tabpanel" hidden>
-          <h3>Learning Objectives</h3>
-          <p>Learning targets for each unit.</p>
-        </div>
-
-        <div id="math-worksheets" role="tabpanel" hidden>
-          <h3>Worksheets</h3>
-          <p>Problem sets and worked examples.</p>
-        </div>
-
-        <div id="math-quizzes" role="tabpanel" hidden>
-          <h3>Quizzes & Exams</h3>
-          <p>Unit quizzes and cumulative exams.</p>
-        </div>
-
-        <div id="math-badges" role="tabpanel" hidden>
-          <h3>Badges & Certificates</h3>
-          <p>Achievement badges and certificates.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCIENCE -->
-    <section id="panel-science" class="subject-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Science</h2>
-            <p>Biology, chemistry, physics, and inquiry</p>
-          </div>
-          <div class="hint">Subject workspace</div>
-        </div>
-
-        <div class="inner-tabs" role="tablist" aria-label="Science sections">
-          <button role="tab" data-panel="science-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
-          <button role="tab" data-panel="science-analytics" aria-selected="false" tabindex="-1">Analytics</button>
-          <button role="tab" data-panel="science-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
-          <button role="tab" data-panel="science-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
-          <button role="tab" data-panel="science-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
-          <button role="tab" data-panel="science-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
-        </div>
-
-        <div id="science-diagnostic" role="tabpanel" hidden>
-          <h3>Diagnostic</h3>
-          <p>Baseline science knowledge and inquiry skills.</p>
-        </div>
-
-        <div id="science-analytics" role="tabpanel" hidden>
-          <h3>Analytics</h3>
-          <p>Experiment logs and concept mastery.</p>
-        </div>
-
-        <div id="science-objectives" role="tabpanel" hidden>
-          <h3>Learning Objectives</h3>
-          <p>Unit goals and lab skills.</p>
-        </div>
-
-        <div id="science-worksheets" role="tabpanel" hidden>
-          <h3>Worksheets</h3>
-          <p>Diagrams, labeling, and practice activities.</p>
-        </div>
-
-        <div id="science-quizzes" role="tabpanel" hidden>
-          <h3>Quizzes & Exams</h3>
-          <p>Topic quizzes and practical assessments.</p>
-        </div>
-
-        <div id="science-badges" role="tabpanel" hidden>
-          <h3>Badges & Certificates</h3>
-          <p>STEM badges and completion certificates.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOCIAL STUDIES -->
-    <section id="panel-social-studies" class="subject-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Social Studies</h2>
-            <p>History, geography, civics, and economics</p>
-          </div>
-          <div class="hint">Subject workspace</div>
-        </div>
-
-        <div class="inner-tabs" role="tablist" aria-label="Social Studies sections">
-          <button role="tab" data-panel="social-diagnostic" aria-selected="true" tabindex="0">Diagnostic</button>
-          <button role="tab" data-panel="social-analytics" aria-selected="false" tabindex="-1">Analytics</button>
-          <button role="tab" data-panel="social-objectives" aria-selected="false" tabindex="-1">Learning Objectives</button>
-          <button role="tab" data-panel="social-worksheets" aria-selected="false" tabindex="-1">Worksheets</button>
-          <button role="tab" data-panel="social-quizzes" aria-selected="false" tabindex="-1">Quizzes & Exams</button>
-          <button role="tab" data-panel="social-badges" aria-selected="false" tabindex="-1">Badges & Certificates</button>
-        </div>
-
-        <div id="social-diagnostic" role="tabpanel" hidden>
-          <h3>Diagnostic</h3>
-          <p>Baseline knowledge of history and civics.</p>
-        </div>
-
-        <div id="social-analytics" role="tabpanel" hidden>
-          <h3>Analytics</h3>
-          <p>Engagement metrics and topic mastery.</p>
-        </div>
-
-        <div id="social-objectives" role="tabpanel" hidden>
-          <h3>Learning Objectives</h3>
-          <p>Unit objectives and inquiry questions.</p>
-        </div>
-
-        <div id="social-worksheets" role="tabpanel" hidden>
-          <h3>Worksheets</h3>
-          <p>Timelines, maps, and document analysis tasks.</p>
-        </div>
-
-        <div id="social-quizzes" role="tabpanel" hidden>
-          <h3>Quizzes & Exams</h3>
-          <p>Unit quizzes and summative assessments.</p>
-        </div>
-
-        <div id="social-badges" role="tabpanel" hidden>
-          <h3>Badges & Certificates</h3>
-          <p>Recognition for civic literacy and historical understanding.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- STANDARDS (special tab, no inner tabs) -->
-    <section id="panel-standards" class="subject-panel special-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Standards</h2>
-            <p>Curriculum frameworks and grade-level expectations</p>
-          </div>
-          <div class="hint">Reference guide</div>
-        </div>
-
-        <div class="panel-grid">
-          <div class="panel">
-            <h3>Grade-Level Benchmarks</h3>
-            <p>Explore what students are expected to know and do at each grade level across subjects.</p>
-          </div>
-          <div class="panel">
-            <h3>Curriculum Alignment</h3>
-            <p>How Nexis Learning aligns with Common Core, NGSS, and state standards.</p>
-          </div>
-          <div class="panel">
-            <h3>Assessment Criteria</h3>
-            <p>Understand how diagnostics and exams reflect national learning goals.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOME SCHOOLING (special tab, no inner tabs) -->
-    <section id="panel-home-schooling" class="subject-panel special-panel" role="tabpanel" aria-hidden="true">
-      <div class="subject-card">
-        <div class="subject-header">
-          <div>
-            <h2>Home Schooling</h2>
-            <p>Flexible learning tools for families and independent learners</p>
-          </div>
-          <div class="hint">Support hub</div>
-        </div>
-
-        <div class="panel-grid">
-          <div class="panel">
-            <h3>Custom Schedules</h3>
-            <p>Build a learning calendar with modular subjects and pacing guides.</p>
-          </div>
-          <div class="panel">
-            <h3>Parent Resources</h3>
-            <p>Teaching tips, printable materials, and progress tracking tools for caregivers.</p>
-          </div>
-          <div class="panel">
-            <h3>Independent Study</h3>
-            <p>Self-guided modules, certificate pathways, and recommended learning sequences.</p>
-          </div>
-        </div>
-      </div>
+      <article class="card">
+        <h2>Card Three</h2>
+        <p>Some descriptive text for card three that preserves the original spacing and font sizes.</p>
+        <button class="btn card-btn">Action</button>
+      </article>
     </section>
   </main>
 
-  <footer>
-    © 2025 Nexis Learning — All rights reserved
+  <footer class="site-footer" id="contact">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Brand. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
