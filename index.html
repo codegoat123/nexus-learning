@@ -2,141 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jungle Island Game</title>
-  <style>
-    body { margin: 0; overflow: hidden; }
-    canvas { display: block; }
-    #ui {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      color: white;
-      font-family: sans-serif;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.3);
-      display: flex;
-      justify-content: space-between;
-    }
-    #stats {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    #instructions, #menu, #inventoryUI {
-      position: absolute;
-      color: white;
-      background: rgba(0,0,0,0.5);
-      padding: 10px;
-      font-family: sans-serif;
-      border-radius: 5px;
-    }
-    #instructions {
-      bottom: 10px;
-      left: 10px;
-    }
-    #menu {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-    #menu button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #inventoryUI {
-      top: 10px;
-      right: 10px;
-      display: none;
-      width: 200px;
-    }
-    .item {
-      background: rgba(255,255,255,0.1);
-      padding: 5px;
-      margin-bottom: 5px;
-      border-radius: 3px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexis Learning</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="ui">
-    <div id="stats">
-      <div id="health">❤️ Health: 100</div>
-      <div id="level">⭐ Level: 1</div>
-      <div id="exp">🧠 EXP: 0/100</div>
-      <div id="fruit">🍇 Fruit Power: None</div>
+  <header>
+    <div class="brand">
+      <h1>Nexis Learning</h1>
+      <p>Structured learning paths for every subject</p>
     </div>
-    <div id="quest">📜 Quest: Defeat 3 Monkeys</div>
-  </div>
-  <div id="instructions">
-    W/A/S/D: Move | Mouse: Look | Space: Jump | Click: Attack | F: Eat Fruit | E: Talk to Dealer | I: Inventory
-  </div>
-  <div id="inventoryUI"></div>
-  <div id="menu">
-    <h1>Game Over</h1>
-    <button onclick="location.reload()">Restart</button>
-  </div>
+  </header>
 
-  <audio id="bgMusic" autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/10/11/audio_7e033409f5.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="hitSound">
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_42495c8f68.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="levelUpSound">
-    <source src="https://cdn.pixabay.com/audio/2021/09/20/audio_5c2a2a83b2.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Top-level navigation -->
+  <nav class="top-tabs" role="tablist">
+    <button role="tab" data-target="home" aria-selected="true">Home</button>
+    <button role="tab" data-target="languages">Languages</button>
+    <button role="tab" data-target="math">Math</button>
+    <button role="tab" data-target="standards">Standards</button>
+    <button role="tab" data-target="home-schooling">Home Schooling</button>
+  </nav>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/PointerLockControls.js"></script>
+  <main>
+    <!-- HOME -->
+    <section id="home" class="subject-panel active">
+      <div class="subject-card">
+        <h2>Welcome Home</h2>
+        <p>Select a subject tab above to begin.</p>
+      </div>
+    </section>
 
-  <script>
-    document.addEventListener('keydown', (e) => {
-      if (e.code === 'KeyE') talkToDealer();
-      if (e.code === 'KeyI') toggleInventory();
-    });
+    <!-- LANGUAGES -->
+    <section id="languages" class="subject-panel">
+      <div class="subject-card">
+        <h2>Languages</h2>
+        <p>Choose a language workspace.</p>
 
-    const inventory = [];
-    const inventoryUI = document.getElementById('inventoryUI');
+        <!-- Language selector -->
+        <div class="inner-tabs">
+          <button role="tab" data-panel="spanish" aria-selected="true">Spanish</button>
+          <!-- Later: add English, French, etc. -->
+        </div>
 
-    function talkToDealer() {
-      const dealerPos = new THREE.Vector3(-10, 2, 10);
-      if (controls.getObject().position.distanceTo(dealerPos) < 4) {
-        alert("Welcome to the Jungle Fruit Dealer! Today's fruit: Ice Ball. Find it and press F to eat it.");
-        addItemToInventory("Ice Ball Fruit");
-      }
-    }
+        <!-- Spanish workspace -->
+        <div id="spanish" class="language-panel active">
+          <div class="inner-tabs">
+            <button role="tab" data-panel="spanish-diagnostic" aria-selected="true">Diagnostic</button>
+            <button role="tab" data-panel="spanish-analytics">Analytics</button>
+            <button role="tab" data-panel="spanish-objectives">Learning Objectives</button>
+            <button role="tab" data-panel="spanish-worksheets">Worksheets</button>
+            <button role="tab" data-panel="spanish-quizzes">Quizzes & Exams</button>
+            <button role="tab" data-panel="spanish-badges">Badges & Certificates</button>
+          </div>
 
-    function toggleInventory() {
-      if (inventoryUI.style.display === 'none') {
-        inventoryUI.style.display = 'block';
-        updateInventoryUI();
-      } else {
-        inventoryUI.style.display = 'none';
-      }
-    }
+          <div id="spanish-diagnostic" class="panel active">
+            <h3>Diagnostic</h3>
+            <p>Placement test for vocabulary, verbs, and comprehension.</p>
+          </div>
 
-    function addItemToInventory(item) {
-      if (!inventory.includes(item)) {
-        inventory.push(item);
-        updateInventoryUI();
-      }
-    }
+          <div id="spanish-analytics" class="panel">
+            <h3>Analytics</h3>
+            <p>Progress tracking and skill breakdowns.</p>
+          </div>
 
-    function updateInventoryUI() {
-      inventoryUI.innerHTML = '<h3>Inventory</h3>' + inventory.map(item => `<div class='item'>${item}</div>`).join('');
-    }
+          <div id="spanish-objectives" class="panel">
+            <h3>Learning Objectives</h3>
+            <ul>
+              <li>Learn 100 core everyday words.</li>
+              <li>Master present tense conjugations of regular verbs.</li>
+              <li>Hold a basic 3–5 sentence dialogue.</li>
+              <li>Read short passages and identify main ideas.</li>
+            </ul>
+          </div>
 
-    // Simulate environment interactions
-    setTimeout(() => addItemToInventory("Health Potion"), 8000);
-    setTimeout(() => addItemToInventory("Map Piece"), 12000);
-    setTimeout(() => addItemToInventory("Golden Banana"), 16000);
-  </script>
+          <div id="spanish-worksheets" class="panel">
+            <h3>Worksheets</h3>
+            <p>Printable exercises for vocabulary and grammar practice.</p>
+          </div>
+
+          <div id="spanish-quizzes" class="panel">
+            <h3>Quizzes & Exams</h3>
+            <p>Sample Quiz:</p>
+            <ol>
+              <li>Translate “Good morning” → <strong>Buenos días</strong></li>
+              <li>Fill in: “Me llamo ___.” → <strong>Juan</strong></li>
+              <li>Match: Adiós → Goodbye, Gracias → Thank you</li>
+            </ol>
+            <p>Exam sections: Vocabulary, Grammar, Reading, Listening.</p>
+          </div>
+
+          <div id="spanish-badges" class="panel">
+            <h3>Badges & Certificates</h3>
+            <p>Earn badges for milestones and certificates for completion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATH (placeholder for later) -->
+    <section id="math" class="subject-panel">
+      <div class="subject-card">
+        <h2>Math</h2>
+        <p>Coming soon...</p>
+      </div>
+    </section>
+
+    <!-- STANDARDS -->
+    <section id="standards" class="subject-panel">
+      <div class="subject-card">
+        <h2>Standards</h2>
+        <p>Curriculum frameworks and grade-level expectations.</p>
+      </div>
+    </section>
+
+    <!-- HOME SCHOOLING -->
+    <section id="home-schooling" class="subject-panel">
+      <div class="subject-card">
+        <h2>Home Schooling</h2>
+        <p>Flexible learning tools for families and independent learners.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Nexis Learning — All rights reserved
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
